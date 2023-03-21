@@ -23,8 +23,8 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-          <Stack>
-            Nombre:
+          <Stack style={{ color: "black", display:"flex", fontSize:"1rem", flexDirection:"row", alignItems:"center", gap:"2rem", marginBottom:"2rem"}}>
+            BUSCAR POR NOMBRE:
             <TextField
               onChange={handleSearch}
               
