@@ -1,22 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
+import Stack from "@mui/material/Stack";
+import TextField from "@mui/material/TextField";
 
+import CustomTable from './components/Table';
+import ModalAddProduct from './components/ModalAddProduct';
+
+import { useModalForm } from './components/ModalAddProduct/useModalForm';
+
+import './App.css';
 function App() {
+
+  
+  const [ openModal, setOpenModal] = useState(false)
+
+  const handleOpenModal = () =>{
+    setOpenModal(!openModal)
+    reset()
+  }
+  
+  const { pageData, totalPage, handleDelete,  handleSearch, handleSubmit, addProduct, register, errors, handlePage, reset } = useModalForm({ handleClose:handleOpenModal});
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+          <Stack>
+            Nombre:
+            <TextField
+              onChange={handleSearch}
+              
+            />
+          </Stack>
+        <CustomTable  rows={pageData} columns={["Nombre", "Precio", "Descripción", ""]} totalPage={totalPage} onClick={handleOpenModal} handlePage={handlePage} handleDelete={handleDelete}/>
+        {openModal && <ModalAddProduct open={openModal} handleClose={handleOpenModal} handleSubmit={handleSubmit} addProduct={addProduct} register={register} errors={errors}/>}
       </header>
     </div>
   );
